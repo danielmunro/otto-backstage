@@ -31,9 +31,34 @@ import { FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { PermissionedRoute } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
+import {githubAuthApiRef, googleAuthApiRef} from '@backstage/core-plugin-api'
+import { SignInProviderConfig, SignInPage } from '@backstage/core-components';
+
+const googleProvider: SignInProviderConfig = {
+  id: 'google-auth-provider',
+  title: 'Google',
+  message: 'Sign in using Google',
+  apiRef: googleAuthApiRef,
+};
+
+const githubProvider: SignInProviderConfig = {
+  id: 'github-auth-provider',
+  title: 'Github',
+  message: 'Sign in using GitHub',
+  apiRef: githubAuthApiRef,
+};
 
 const app = createApp({
   apis,
+  components: {
+    SignInPage: props => (
+      <SignInPage
+        {...props}
+        auto
+        providers={['guest', googleProvider, githubProvider]}
+      />
+    ),
+  },
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       createComponent: scaffolderPlugin.routes.root,

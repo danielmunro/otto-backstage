@@ -1,9 +1,9 @@
 app:
-  title: Scaffolded Backstage App
+  title: Otto
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: Otto
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -24,8 +24,12 @@ backend:
     methods: [GET, POST, PUT, DELETE]
     credentials: true
   database:
-    client: better-sqlite3
-    connection: ':memory:'
+    client: pg
+    connection:
+      host: ${POSTGRES_HOST}
+      port: ${POSTGRES_PORT}
+      user: ${POSTGRES_USER}
+      password: ${POSTGRES_PASSWORD}
   cache:
     store: memory
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
@@ -57,7 +61,16 @@ techdocs:
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
-  providers: {}
+  environment: development
+  providers:
+    google:
+      development:
+        clientId: ${AUTH_GOOGLE_CLIENT_ID}
+        clientSecret: ${AUTH_GOOGLE_CLIENT_SECRET}
+    github:
+      development:
+        clientId: ${AUTH_GITHUB_CLIENT_ID}
+        clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
 
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
@@ -68,37 +81,38 @@ catalog:
     pullRequestBranchName: backstage-integration
   rules:
     - allow: [Component, System, API, Resource, Location]
-  locations:
-    # Backstage example components
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-components.yaml
-
-    # Backstage example systems
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-systems.yaml
-
-    # Backstage example APIs
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
-
-    # Backstage example resources
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-resources.yaml
-
-    # Backstage example organization groups
-    - type: url
-      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme/org.yaml
-
-    # Backstage example templates
-    - type: url
-      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/react-ssr-template/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/springboot-grpc-template/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/docs-template/template.yaml
-      rules:
-        - allow: [Template]
+  locations: []
+#  locations:
+#    # Backstage example components
+#    - type: url
+#      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-components.yaml
+#
+#    # Backstage example systems
+#    - type: url
+#      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-systems.yaml
+#
+#    # Backstage example APIs
+#    - type: url
+#      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-apis.yaml
+#
+#    # Backstage example resources
+#    - type: url
+#      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-resources.yaml
+#
+#    # Backstage example organization groups
+#    - type: url
+#      target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme/org.yaml
+#
+#    # Backstage example templates
+#    - type: url
+#      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/react-ssr-template/template.yaml
+#      rules:
+#        - allow: [Template]
+#    - type: url
+#      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/springboot-grpc-template/template.yaml
+#      rules:
+#        - allow: [Template]
+#    - type: url
+#      target: https://github.com/backstage/software-templates/blob/main/scaffolder-templates/docs-template/template.yaml
+#      rules:
+#        - allow: [Template]
