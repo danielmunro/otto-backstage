@@ -39,3 +39,6 @@ site
 *-credentials.yaml
 
 .idea/
+
+terraform.tfstate*
+.terraform/
