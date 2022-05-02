@@ -1,1 +1,1 @@
-{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"networking","Source":"./modules/networking","Dir":"modules/networking"}]}
+{"Modules":[{"Key":"networking","Source":"./modules/networking","Dir":"modules/networking"},{"Key":"lamba","Source":"./modules/lambda","Dir":"modules/lambda"},{"Key":"lambda","Source":"./modules/lambda","Dir":"modules/lambda"},{"Key":"","Source":"","Dir":"."}]}
