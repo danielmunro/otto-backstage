@@ -26,3 +26,24 @@ spec:
           - containerPort: 7007
             name: http
             protocol: TCP
+        env:
+          - name: APP_CONFIG_backend_database_connection_host
+            valueFrom:
+              secretKeyRef:
+                name: backstage
+                key: postgres_host
+          - name: APP_CONFIG_backend_database_connection_port
+            valueFrom:
+              secretKeyRef:
+                name: backstage
+                key: postgres_port
+          - name: APP_CONFIG_backend_database_connection_user
+            valueFrom:
+              secretKeyRef:
+                name: backstage
+                key: postgres_user
+          - name: APP_CONFIG_backend_database_connection_password
+            valueFrom:
+              secretKeyRef:
+                name: backstage
+                key: postgres_password
