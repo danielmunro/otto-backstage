@@ -28,7 +28,7 @@ spec:
             protocol: TCP
         env:
           - name: APP_CONFIG_backend_baseUrl
-            value: localhost:7007
+            value: backstage:7007
           - name: APP_CONFIG_backend_database_connection_host
             valueFrom:
               secretKeyRef:
