@@ -1,11 +1,18 @@
 app:
   # Should be the same as backend.baseUrl when using the `app-backend` plugin
-  baseUrl: http://localhost
+  baseUrl: https://backstage.thirdplaceapp.com
 
 backend:
-  baseUrl: http://localhost
+  baseUrl: http://backstage.thirdplaceapp.com
   listen:
     port: 80
+  database:
+    client: pg
+    connection:
+      host: foo
+      port: 123
+      user: bar
+      password: baz
 
 catalog:
   readonly: true
