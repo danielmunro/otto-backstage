@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: otto-backstage
-        image: ghcr.io/danielmunro/otto-backstage:v0.1.1
+        image: ghcr.io/danielmunro/otto-backstage:v0.1.2
         imagePullPolicy: Always
         ports:
           - containerPort: 7007
