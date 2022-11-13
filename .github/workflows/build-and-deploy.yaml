@@ -1,30 +1,19 @@
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '*'
 jobs:
-  build-and-publish-docker:
+  publish-docker-image:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
     steps:
       - uses: actions/checkout@v2
-      - run: yarn install --frozen-lockfile
-      - run: yarn tsc
-      - run: yarn build
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-west-2
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: Build, tag, and push image to Amazon ECR
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: otto-backstage
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          docker build -f packages/backend/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
+      - run: |
+          yarn install --frozen-lockfile
+          yarn tsc
+          yarn build
+      - run: echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u danielmunro --password-stdin
+      - run: docker build . -f packages/backend/Dockerfile --tag ghcr.io/danielmunro/otto-backstage:${{ github.ref_name }}
+      - run: docker push ghcr.io/danielmunro/otto-backstage:${{ github.ref_name }}
