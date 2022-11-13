@@ -15,5 +15,5 @@ jobs:
           yarn tsc
           yarn build
       - run: echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u danielmunro --password-stdin
-      - run: docker build . -f packages/backend/Dockerfile --tag ghcr.io/danielmunro/otto-backstage:${{ github.ref_name }}
+      - run: DOCKER_BUILDKIT=1 docker build . -f packages/backend/Dockerfile --tag ghcr.io/danielmunro/otto-backstage:${{ github.ref_name }}
       - run: docker push ghcr.io/danielmunro/otto-backstage:${{ github.ref_name }}
