@@ -8,6 +8,6 @@ spec:
     app: backstage
   ports:
     - name: http
-      port: 80
+      port: 7007
       protocol: TCP
       targetPort: http
