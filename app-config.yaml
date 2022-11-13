@@ -1,6 +1,6 @@
 app:
   title: Otto
-  baseUrl: http://backstage:7007
+  baseUrl: https://backstage.thirdplaceapp.com
 
 organization:
   name: Otto
@@ -20,7 +20,7 @@ backend:
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
     # Default Helmet Content-Security-Policy values can be removed by setting the key to false
   cors:
-    origin: http://backstage:7007
+    origin: https://backstage.thirdplaceapp.com
     methods: [GET, POST, PUT, DELETE]
     credentials: true
   cache:
