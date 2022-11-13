@@ -19,7 +19,7 @@ spec:
         app: backstage
     spec:
       containers:
-      - name: otto-backstage
+      - name: backstage
         image: ghcr.io/danielmunro/otto-backstage:v0.1.4
         imagePullPolicy: Always
         ports:
